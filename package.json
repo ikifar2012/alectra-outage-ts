@@ -1,0 +1,44 @@
+{
+  "name": "alectra-outage-ts",
+  "version": "0.1.0",
+  "description": "Unofficial typed client for Alectra's public outage map",
+  "aiGenerated": {
+    "value": true,
+    "tool": "OpenAI Codex",
+    "notice": "Review the code and behavior before production use."
+  },
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./index.ts",
+  "exports": {
+    ".": {
+      "types": "./index.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "index.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "bun build ./index.ts --outdir ./dist --target node --format esm --minify",
+    "check": "tsc --noEmit",
+    "prepack": "bun run check && bun run build"
+  },
+  "keywords": [
+    "alectra",
+    "ai-generated",
+    "outage",
+    "arcgis",
+    "typescript"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5"
+  }
+}
