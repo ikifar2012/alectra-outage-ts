@@ -1,23 +1,60 @@
 # alectra-outage-ts
 
+**Status: experimental and unofficial.**
+
 > **AI-generated project:** This library was designed and implemented with
 > OpenAI Codex. Its code and behavior should be reviewed by a human before use
 > in production.
 
 An unofficial, dependency-free TypeScript client for the public data behind
 [Alectra's outage map](https://experience.arcgis.com/experience/8371de586076441192a1fa7058816c00).
+It provides typed access to current outage cases, assigned crews, outage-area
+polygons, and address-based searches.
 
 > This project is not affiliated with or endorsed by Alectra Utilities. The
 > upstream ArcGIS service is public but undocumented, so its URL or schema may
 > change without notice. Be considerate with polling.
 
+## Important limitations
+
+- Do not rely on this package for emergencies, public safety, or guaranteed
+  restoration information. Confirm important information through Alectra's
+  official channels.
+- The package reads an undocumented public data source. Alectra can change,
+  restrict, delay, or remove that source at any time.
+- Customer counts, causes, crew states, locations, and restoration estimates
+  are reported exactly as available upstream and may be missing or approximate.
+- This package is a read-only client. It cannot report an outage or contact
+  emergency services.
+- The MIT license applies to this project's code, not to Alectra or Esri data,
+  services, names, or trademarks.
+
+## Data sources and privacy
+
+Outage information comes from the public ArcGIS feature layers used by the
+official Alectra outage map. Address and town searches use Esri's public World
+Geocoding Service. Calling `geocode`, `getOutagesNear`, or `getSnapshotNear`
+sends the supplied search text to Esri. Avoid submitting sensitive personal
+information.
+
 ## Install
+
+Once the package has been published:
 
 ```bash
 bun add alectra-outage-ts
+# or: npm install alectra-outage-ts
 ```
 
-The client works in modern browsers, Bun, and Node.js 18 or newer.
+For local development in this repository:
+
+```bash
+bun install
+```
+
+The distributed client is ESM-only and works in modern browsers, Bun, and
+Node.js 18 or newer. It has no runtime dependencies and requires a global
+`fetch` implementation.
 
 ## Usage
 
@@ -92,7 +129,7 @@ const outages = await client.getOutages({ signal: controller.signal });
 
 All coordinates are GeoJSON longitude/latitude values (EPSG:4326). ArcGIS date
 timestamps are returned as `Date` objects, and missing upstream values become
-`null`.
+`null`. Nearby searches use a 10 km radius unless `radiusKm` is supplied.
 
 ## API
 
@@ -106,6 +143,24 @@ timestamps are returned as `Date` objects, and missing upstream values become
 
 Requests that fail throw `AlectraApiError`.
 
+## Responsible use
+
+The upstream service currently advertises short-lived caching and is intended
+to support a public map. Cache responses in your application and avoid rapid
+or unnecessary polling. This library does not provide an automatic polling
+loop.
+
+## Development
+
+```bash
+bun install
+bun run check
+bun run build
+```
+
+`bun run check` runs strict TypeScript validation. `bun run build` creates the
+ESM package in `dist/`.
+
 ## Project structure
 
 - `index.ts` is the stable public export surface
@@ -116,3 +171,10 @@ Requests that fail throw `AlectraApiError`.
 - `src/internal/arcgis-service.ts` handles HTTP and ArcGIS query construction
 - `src/internal/normalize.ts` converts ArcGIS fields into public models
 - `src/internal/validation.ts` validates query inputs
+
+## License and trademarks
+
+The library code is available under the [MIT License](./LICENSE). “Alectra,”
+related names, and associated marks belong to their respective owners. Their
+use here only identifies the public service with which this unofficial client
+interoperates.

@@ -1,7 +1,7 @@
 {
   "name": "alectra-outage-ts",
   "version": "0.1.0",
-  "description": "Unofficial typed client for Alectra's public outage map",
+  "description": "Experimental, unofficial TypeScript client for Alectra's public outage map",
   "aiGenerated": {
     "value": true,
     "tool": "OpenAI Codex",
@@ -32,7 +32,9 @@
   "keywords": [
     "alectra",
     "ai-generated",
+    "electricity",
     "outage",
+    "outage-map",
     "arcgis",
     "typescript"
   ],
