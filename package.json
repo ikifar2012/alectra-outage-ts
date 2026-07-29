@@ -2,6 +2,14 @@
   "name": "alectra-outage-ts",
   "version": "0.1.0",
   "description": "Experimental, unofficial TypeScript client for Alectra's public outage map",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikifar2012/alectra-outage-ts.git"
+  },
+  "homepage": "https://github.com/ikifar2012/alectra-outage-ts#readme",
+  "bugs": {
+    "url": "https://github.com/ikifar2012/alectra-outage-ts/issues"
+  },
   "aiGenerated": {
     "value": true,
     "tool": "OpenAI Codex",
@@ -39,6 +47,10 @@
     "typescript"
   ],
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "devDependencies": {
     "@types/bun": "latest",
     "typescript": "^5"

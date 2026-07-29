@@ -161,6 +161,40 @@ bun run build
 `bun run check` runs strict TypeScript validation. `bun run build` creates the
 ESM package in `dist/`.
 
+## Publishing to npm
+
+Publishing is handled by `.github/workflows/publish.yml` whenever a GitHub
+Release is published. The workflow checks that the release tag matches the
+version in `package.json`, validates and builds the package, and then publishes
+it to npm.
+
+The workflow uses npm trusted publishing with GitHub Actions OpenID Connect.
+It does not require a long-lived `NPM_TOKEN`. npm automatically attaches
+provenance when the package and GitHub repository are public.
+
+Before the first automated release:
+
+1. Publish the package once from an npm account that owns the package name.
+   This bootstraps the package because its npm settings do not exist before the
+   first publication.
+2. In the package settings on npmjs.com, add a GitHub Actions trusted
+   publisher using your GitHub owner, repository name, and the workflow
+   filename `publish.yml`. Allow `npm publish`.
+3. Commit a new package version, create a matching tag such as `v0.1.1`, and
+   publish a GitHub Release for that tag.
+
+For the initial manual publication:
+
+```bash
+npm login
+npm publish
+```
+
+Do not create an `NPM_TOKEN` repository secret for the normal automated flow.
+Trusted publishing requires a GitHub-hosted runner, Node.js 22.14 or newer,
+npm 11.5.1 or newer, and `id-token: write`; the included workflow satisfies
+those runner requirements with Node.js 24.
+
 ## Project structure
 
 - `index.ts` is the stable public export surface
