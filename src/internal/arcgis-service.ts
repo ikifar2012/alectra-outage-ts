@@ -14,10 +14,10 @@ export class ArcGisService {
     private readonly fetch: typeof globalThis.fetch,
   ) {}
 
-  async query<G>(
+  async query<GeometryType>(
     layer: number,
     options: QueryOptions,
-  ): Promise<ArcGisFeatureCollection<G>> {
+  ): Promise<ArcGisFeatureCollection<GeometryType>> {
     validateQuery(options);
     const params = this.createQueryParams(options);
     const response = await this.fetch(
@@ -25,7 +25,7 @@ export class ArcGisService {
       { signal: options.signal },
     );
     const body = await this.readJson<
-      ArcGisFeatureCollection<G> & ArcGisErrorResponse
+      ArcGisFeatureCollection<GeometryType> & ArcGisErrorResponse
     >(response);
 
     this.throwIfError(response, body);

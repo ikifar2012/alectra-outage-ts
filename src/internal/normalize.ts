@@ -28,45 +28,48 @@ const asBoolean = (value: unknown): boolean | null => {
 };
 
 export const normalizeOutage = ({
-  properties: p,
+  properties,
   geometry,
 }: ArcGisFeature<Point>): Outage => ({
-  objectId: asNumber(p.OBJECTID) ?? 0,
-  caseId: asNumber(p.CaseIDOnMap),
-  showOnMap: asBoolean(p.ShowOnMap) ?? false,
-  outageTime: asDate(p.OutageTime),
-  customersOut: asNumber(p.CURCUST),
-  customersAffected: asNumber(p.INITCUST),
-  cause: asString(p.OutageCausePublic),
-  message: asString(p.PUBLICMSG),
-  estimatedRestorationTime: asDate(p.EstRestoreTime),
+  objectId: asNumber(properties.OBJECTID) ?? 0,
+  caseId: asNumber(properties.CaseIDOnMap),
+  showOnMap: asBoolean(properties.ShowOnMap) ?? false,
+  outageTime: asDate(properties.OutageTime),
+  customersOut: asNumber(properties.CURCUST),
+  customersAffected: asNumber(properties.INITCUST),
+  cause: asString(properties.OutageCausePublic),
+  message: asString(properties.PUBLICMSG),
+  estimatedRestorationTime: asDate(properties.EstRestoreTime),
   location: geometry,
 });
 
 export const normalizeCrew = ({
-  properties: p,
+  properties,
   geometry,
 }: ArcGisFeature<Point>): Crew => ({
-  objectId: asNumber(p.OBJECTID) ?? 0,
-  caseId: asNumber(p.CaseID),
-  mappedCaseId: asNumber(p.CaseIDOnMap),
-  status: asString(p.CrewStatus),
-  lastUpdated: asDate(p.LastUpdated),
-  assigned: asNumber(p.Assigned),
-  enroute: asNumber(p.Enroute),
-  arrived: asNumber(p.Arrived),
-  completed: asNumber(p.Completed),
-  showOnMap: asBoolean(p.ShowOnMap),
+  objectId: asNumber(properties.OBJECTID) ?? 0,
+  caseId: asNumber(properties.CaseID),
+  mappedCaseId: asNumber(properties.CaseIDOnMap),
+  status: asString(properties.CrewStatus),
+  lastUpdated: asDate(properties.LastUpdated),
+  assigned: asNumber(properties.Assigned),
+  enroute: asNumber(properties.Enroute),
+  arrived: asNumber(properties.Arrived),
+  completed: asNumber(properties.Completed),
+  showOnMap: asBoolean(properties.ShowOnMap),
   location: geometry,
 });
 
 export const normalizeOutageArea = ({
-  properties: p,
+  properties,
   geometry,
 }: ArcGisFeature<Polygon | MultiPolygon>): OutageArea => ({
-  objectId: asNumber(p.OBJECTID) ?? 0,
-  caseId: p.CaseIDOnMap == null ? null : String(p.CaseIDOnMap),
-  area: asNumber(p.SHAPE__Area),
-  perimeter: asNumber(p.SHAPE__Length),
+  objectId: asNumber(properties.OBJECTID) ?? 0,
+  caseId:
+    properties.CaseIDOnMap == null
+      ? null
+      : String(properties.CaseIDOnMap),
+  area: asNumber(properties.SHAPE__Area),
+  perimeter: asNumber(properties.SHAPE__Length),
   geometry,
 });

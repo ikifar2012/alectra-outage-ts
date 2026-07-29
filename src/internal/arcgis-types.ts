@@ -1,14 +1,14 @@
 export type ArcGisProperties = Record<string, string | number | null>;
 
-export interface ArcGisFeature<G> {
+export interface ArcGisFeature<GeometryType> {
   type: "Feature";
-  geometry: G;
+  geometry: GeometryType;
   properties: ArcGisProperties;
 }
 
-export interface ArcGisFeatureCollection<G> {
+export interface ArcGisFeatureCollection<GeometryType> {
   type: "FeatureCollection";
-  features: ArcGisFeature<G>[];
+  features: ArcGisFeature<GeometryType>[];
 }
 
 export interface ArcGisErrorResponse {
