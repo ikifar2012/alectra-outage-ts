@@ -39,8 +39,6 @@ information.
 
 ## Install
 
-Once the package has been published:
-
 ```bash
 bun add alectra-outage-ts
 # or: npm install alectra-outage-ts
