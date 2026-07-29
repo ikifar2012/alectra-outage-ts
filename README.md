@@ -76,7 +76,7 @@ Fetch outages, assigned crews, and outage polygons together:
 
 ```ts
 const snapshot = await alectra.getSnapshot();
-console.log(snapshot.outages, snapshot.crews, snapshot.areas);
+console.log(snapshot.outages, snapshot.crews, snapshot.outageAreas);
 ```
 
 Search using a street address, postal code, or town:
@@ -127,7 +127,8 @@ const outages = await client.getOutages({ signal: controller.signal });
 
 All coordinates are GeoJSON longitude/latitude values (EPSG:4326). ArcGIS date
 timestamps are returned as `Date` objects, and missing upstream values become
-`null`. Nearby searches use a 10 km radius unless `radiusKm` is supplied.
+`null`. Outage-area sizes use square metres and their perimeters use metres.
+Nearby searches use a 10 km radius unless `radiusKm` is supplied.
 
 ## API
 

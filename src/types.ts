@@ -79,15 +79,15 @@ export interface Crew {
 export interface OutageArea {
   objectId: number;
   caseId: string | null;
-  area: number | null;
-  perimeter: number | null;
+  areaSquareMeters: number | null;
+  perimeterMeters: number | null;
   geometry: Polygon | MultiPolygon;
 }
 
 export interface OutageSnapshot {
   outages: Outage[];
   crews: Crew[];
-  areas: OutageArea[];
+  outageAreas: OutageArea[];
   fetchedAt: Date;
 }
 

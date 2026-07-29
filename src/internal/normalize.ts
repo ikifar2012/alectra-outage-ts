@@ -69,7 +69,7 @@ export const normalizeOutageArea = ({
     properties.CaseIDOnMap == null
       ? null
       : String(properties.CaseIDOnMap),
-  area: asNumber(properties.SHAPE__Area),
-  perimeter: asNumber(properties.SHAPE__Length),
+  areaSquareMeters: asNumber(properties.SHAPE__Area),
+  perimeterMeters: asNumber(properties.SHAPE__Length),
   geometry,
 });

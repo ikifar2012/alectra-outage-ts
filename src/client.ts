@@ -109,12 +109,12 @@ export class AlectraOutageClient {
 
   /** Fetch all three layers concurrently. */
   async getSnapshot(options: QueryOptions = {}): Promise<OutageSnapshot> {
-    const [outages, crews, areas] = await Promise.all([
+    const [outages, crews, outageAreas] = await Promise.all([
       this.getOutages(options),
       this.getCrews(options),
       this.getOutageAreas(options),
     ]);
-    return { outages, crews, areas, fetchedAt: new Date() };
+    return { outages, crews, outageAreas, fetchedAt: new Date() };
   }
 
   /** Geocode an address or town and fetch all map layers around it. */
